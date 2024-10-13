@@ -16,4 +16,4 @@ export interface IUser {
   avatar: string;
 }
 
-export default generateFakeUsers;
+export {generateFakeUsers};

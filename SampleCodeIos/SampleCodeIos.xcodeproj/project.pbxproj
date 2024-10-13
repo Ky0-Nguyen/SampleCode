@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D3B49BB2CBBA7EC0000D34E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3B49BA2CBBA7EC0000D34E /* UserModel.swift */; };
 		7D69B1052CBAD9E9006C041C /* Fakery in Frameworks */ = {isa = PBXBuildFile; productRef = 7D69B1042CBAD9E9006C041C /* Fakery */; };
 		7D74A62E2CB9038100891097 /* SampleCodeIosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D74A62D2CB9038100891097 /* SampleCodeIosApp.swift */; };
 		7D74A6302CB9038100891097 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D74A62F2CB9038100891097 /* Persistence.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D3B49BA2CBBA7EC0000D34E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		7D74A62A2CB9038100891097 /* SampleCodeIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleCodeIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D74A62D2CB9038100891097 /* SampleCodeIosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCodeIosApp.swift; sourceTree = "<group>"; };
 		7D74A62F2CB9038100891097 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D3B49B92CBBA7CD0000D34E /* models */ = {
+			isa = PBXGroup;
+			children = (
+				7D3B49BA2CBBA7EC0000D34E /* UserModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		7D74A6212CB9038100891097 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 		7D74A62C2CB9038100891097 /* SampleCodeIos */ = {
 			isa = PBXGroup;
 			children = (
+				7D3B49B92CBBA7CD0000D34E /* models */,
 				7D74A62D2CB9038100891097 /* SampleCodeIosApp.swift */,
 				7D74A62F2CB9038100891097 /* Persistence.swift */,
 				7D74A6342CB9038100891097 /* ContentView.swift */,
@@ -276,6 +287,7 @@
 				7D74A62E2CB9038100891097 /* SampleCodeIosApp.swift in Sources */,
 				7D74A6332CB9038100891097 /* SampleCodeIos.xcdatamodeld in Sources */,
 				7D74A6352CB9038100891097 /* ContentView.swift in Sources */,
+				7D3B49BB2CBBA7EC0000D34E /* UserModel.swift in Sources */,
 				7D74A6302CB9038100891097 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

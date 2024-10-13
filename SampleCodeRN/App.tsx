@@ -4,37 +4,37 @@
  *
  * @format
  */
-import React, {useState, useEffect, memo} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
-import generateFakeUsers, {IUser} from './generateFakeUsers';
-const RenderUser = memo(({item}: {item: IUser}) => (
-  <View style={styles.userContainer}>
-    <Image source={{uri: item.avatar}} style={styles.avatar} />
-    <Text style={styles.name}>{item.name}</Text>
-    <Text style={styles.email}>{item.email}</Text>
-  </View>
-));
+import React, {useState, useEffect} from 'react';
+import {FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 
+import ItemUser from './src/components/ItemUser';
+import {generateFakeUsers, IUser} from './src/utils';
+
+/**
+ * The main App component that renders a list of users.
+ * It fetches users data on mount and renders a loading indicator if data is not available.
+ */
 const App = () => {
+  // State to hold the list of users
   const [users, setUsers] = useState<IUser[]>([]);
 
+  // Effect to fetch users data on component mount
   useEffect(() => {
-    const fakeUsers = generateFakeUsers(100); // Generate 100 fake users
+    // Fetching 1000 fake users
+    const fakeUsers = generateFakeUsers(1000);
+    // Updating the state with the fetched users
     setUsers(fakeUsers);
   }, []);
 
-  const renderUser = ({item}: {item: IUser}) => <RenderUser item={item} />;
+  // Function to render a single user item
+  const renderUser = ({item}: {item: IUser}) => <ItemUser user={item} />;
 
+  // Conditional rendering based on the availability of users data
   return users.length === 0 ? (
+    // Rendering a loading indicator if users data is not available
     <ActivityIndicator size="large" color="#0000ff" />
   ) : (
+    // Rendering the FlatList with users data
     <FlatList
       data={users}
       keyExtractor={item => item.id}
@@ -46,29 +46,12 @@ const App = () => {
   );
 };
 
+// Styles for the FlatList content container
 const styles = StyleSheet.create({
   list: {
     padding: 16,
   },
-  userContainer: {
-    marginTop: 16,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  avatar: {
-    width: '100%',
-    height: 200,
-    borderRadius: 25,
-    marginRight: 16,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  email: {
-    fontSize: 14,
-    color: 'gray',
-  },
 });
 
+// Exporting the App component
 export default App;

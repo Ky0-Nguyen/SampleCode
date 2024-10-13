@@ -7,43 +7,54 @@
 
 import SwiftUI
 import CoreData
-
+// ContentView is a SwiftUI View that displays a list of items fetched from Core Data.
+// It allows users to add and delete items from the list.
 struct ContentView: View {
+    // Environment variable to access the managed object context.
     @Environment(\.managedObjectContext) private var viewContext
 
+    // Fetch request to retrieve items from Core Data, sorted by timestamp.
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
 
+    // The body of the view, which includes a navigation view with a list of items.
     var body: some View {
         NavigationView {
             List {
+                // ForEach loop to iterate over the fetched items and display them in the list.
                 ForEach(items) { item in
                     NavigationLink {
+                        // Detail view for each item, displaying its timestamp.
                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                     } label: {
+                        // List item displaying the timestamp of each item.
                         Text(item.timestamp!, formatter: itemFormatter)
                     }
                 }
+                // onDelete modifier to handle deletion of items from the list.
                 .onDelete(perform: deleteItems)
             }
+            // Toolbar with buttons for editing and adding items.
             .toolbar {
-#if os(iOS)
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-#endif
+                #endif
                 ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
+            // Placeholder text when no items are selected.
             Text("Select an item")
         }
     }
 
+    // Function to add a new item to the list.
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
@@ -52,14 +63,14 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                // Error handling for saving the new item.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
 
+    // Function to delete items from the list.
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
@@ -67,8 +78,7 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                // Error handling for deleting items.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -76,6 +86,7 @@ struct ContentView: View {
     }
 }
 
+// DateFormatter for formatting dates in the list.
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
@@ -83,6 +94,7 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
+// Preview provider for ContentView.
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)

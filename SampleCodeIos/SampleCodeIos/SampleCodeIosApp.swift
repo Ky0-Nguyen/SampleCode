@@ -8,15 +8,8 @@
 import SwiftUI
 import Fakery
 
-struct User: Identifiable {
-    let id = UUID()
-    let name: String
-    let email: String
-    let avatarUrl: String
-}
-
 func generateFakeUsers(count: Int) -> [User] {
-    let faker = Faker()  // Create an instance of Faker
+    let faker = Faker()
     return (0..<count).map { _ in
         User(
             name: faker.name.name(),
